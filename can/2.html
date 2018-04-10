@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+ article,aside,dialog,footer,header,section,footer,nav,figure,menu,canvas{display:block}
+	</style>
+</head>
+<body>
+<canvas id="can" width="200" height="200">80%</canvas>
+<script type="text/javascript">
+window.onload = function(){
+    var can = document.getElementById('can');
+    var pro = can.innerHTML.substring(0,can.innerHTML.length-1);
+    console.log(pro);
+    var cxt = can.getContext('2d');
+
+    //底层
+    cxt.beginPath();
+    cxt.moveTo(100,100);
+    cxt.arc(100,100,100,0,Math.PI*2);
+    cxt.fillStyle='#ddd';
+    cxt.fill();
+    cxt.closePath();
+
+    //进度层
+    cxt.beginPath();
+    cxt.moveTo(100,100);
+    cxt.arc(100,100,100,0,Math.PI*2*90/100,false);
+    cxt.fillStyle='red';
+    cxt.fill();
+    cxt.closePath();
+
+    //顶层补色
+    cxt.beginPath();
+    cxt.moveTo(100,100);
+    cxt.arc(100,100,70,0,Math.PI * 2);
+    cxt.fillStyle="#fff";
+    cxt.fill();
+    cxt.closePath();
+
+    //文字
+    cxt.font = 'bold 40px Arial';
+    cxt.textAlign = 'center';
+    cxt.fillStyle='#333';
+    cxt.textBaseline = 'middle';
+    cxt.moveTo(100,100);
+    cxt.fillText(pro+'%',100,100);
+}
+</script>
+</body>
+</html>

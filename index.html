@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	*{
+		margin:  0 auto;
+		padding: 0;
+	}
+	body{
+		width: 100%;
+		height: 100%;
+		background: #000;
+	}
+    #myCanvas,#myCanvass{
+        border: 10px solid #333;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;right: 0;
+        margin: auto;
+        background-image:linear-gradient(180deg,red,orange,#fff,#fff,#fff,#fff,#fff,#fff,#fff,#fff,#fff,#fff,#fff,yellow,pink);
+        -webkit-transition:all 2s;
+    }
+    .bg{
+		-webkit-transform:rotateX(90deg) scale(.1);
+    }
+    </style>
+</head>
+<body>
+	<canvas id='myCanvass' width='800px' height='500'></canvas>
+	<canvas id='myCanvas' width='800px' height='500'></canvas>
+	<script type="text/javascript" src='js/jquery-1.7.1.js'></script>
+	<script type="text/javascript">
+	$('#myCanvas').on('click',function(){
+		$(this).addClass('bg');
+		$('#myCanvass').removeClass('bg');
+	})
+	$('#myCanvass').on('click',function(){
+		$(this).addClass('bg');
+		$('#myCanvas').removeClass('bg');
+	})
+
+
+	var data = {
+        x: ["1月", "2月", "3月", "4月", "5月", "6月"],
+        y: [0,100,200,300,400,500,600,700,800,900,1000],
+        val: [123, 568, 987, 678, 389, 80],
+        hue: ["#6600FF", "#FF6600", "#00CCCC", "#FF66CC", "#990066", "#00CC00"]
+    };
+
+	var myCanvas = document.getElementById('myCanvas');
+	var Can = myCanvas.getContext('2d');
+	//-----------矩形
+	// Can.fillStyle='#fff';
+	// Can.fillRect(10,10,780,480);
+
+	//-----------渐变
+	// var grd = Can.createLinearGradient(0,0,200,0);
+	// 	grd.addColorStop(0,'red');
+	// 	grd.addColorStop(1,'yellow');
+
+	//-----------线条
+	Can.strokeStyle='blue';
+	Can.moveTo(60,60);
+	Can.lineTo(60,440);
+	Can.lineTo(740,440);
+	Can.stroke();
+	for (var i=0;i<data.y.length; i++) {
+        Can.fillText(data.y[i],20,55+35*(data.y.length-i));
+    }
+	for(var i=0;i<data.val.length;i++){
+		Can.beginPath();
+		Can.lineWidth='50'
+		Can.strokeStyle=data.hue[i];
+		Can.moveTo(150+100*i,439-data.val[i]*0.35);
+		Can.lineTo(150+100*i,439);
+		Can.stroke();
+		Can.fillText(data.x[i],140+100*i,459)
+		Can.fillText(data.val[i],140+100*i,430-data.val[i]*0.35)
+	}
+
+	var arr = {
+        val: [0.05, 0.25, 0.6, 0.1],
+        col: ["green", "red", "blue", "orange"],
+        txt: ["第一季度", "第二季度", "第三季度", "第四季度"]
+    };
+
+    var myCanvass = document.getElementById("myCanvass");
+    var oCan = myCanvass.getContext("2d");
+    var oPI = Math.PI * 2;
+    var oStart = 0;
+    var oEnd = 0;
+
+    for(var i=0;i<arr.val.length;i++){
+    	oCan.beginPath();
+    	oCan.moveTo(500, 250);
+        oEnd = oPI * arr.val[i] + oStart;
+        oCan.arc(500, 250, 180, oStart, oEnd);
+        oCan.fillStyle = arr.col[i];
+        oCan.fill();
+        oCan.closePath();
+        oStart = oEnd;
+
+        oCan.fillStyle = arr.col[i];
+        oCan.fillRect(80,100+50*i,50,20);
+        oCan.fillText(arr.txt[i],150,115+50*i)
+    }
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+canvas 畫布
+
+1、<canvas id="" width="" height=""></canvas>
+
+var myCanvas  = document.getElementById('');獲取 canvas 節點
+var myContext  = myCanvas.getContext('2d'); 創建繪圖工具
+
+//繪製一個矩形
+myContext.fillStyle='#f00'; fillStyle 填充顔色
+myContext.fillRect(x,y,width,height);  fillRect 填充一個矩形 
+//繪製一條綫
+myContext.moveTO(x,y);
+myContext.lineTo(x,y);
+//繪製一個圓
+myContext.beginPath()
+myContext.arc(x,y,r,s,2π);
+myContext.stroke();
+
+//繪製文字
+myContext.font = 'fontSize fontFamily';
+//實心文字
+myContext.fillText('hello world',x,y);
+//箜心文字
+myContext.strokeText('hello world',x,y);
+
+//繪製綫性漸變
+var  linear = myContext.createLinearGradient(x,y,x1,y2);
+linear.addColorStop(0,"red");
+linear.addColorStop(1,"yellow")
+
+myContext.fillStyle=linear;
+myContext.fillRect(0,0,150,80);

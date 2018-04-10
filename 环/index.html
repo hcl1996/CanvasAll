@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圓形進度條</title>
+    <style type="text/css">
+        .myCanvas {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas class="myCanvas" id="myCanvas" height="300" width="300"></canvas>
+<script type="text/javascript">
+    var oCanvas = document.getElementById("myCanvas");
+    var oContext = oCanvas.getContext("2d");
+
+    function Circle() {
+        this.radius = 125;
+        this.lineWidth = 25;
+        this.strokeStyle = '#ccc';
+
+        this.fillStyle = 'blue';
+        this.lineCap = 'round';
+    }
+    Circle.prototype.draw = function (ctx) {
+        ctx.beginPath();
+        ctx.arc(150, 150, this.radius, 0, Math.PI * 2, true);
+        ctx.lineWidth = this.lineWidth;
+        ctx.strokeStyle = this.strokeStyle;
+        ctx.stroke();
+    };
+
+    function Ring(startAngle, percent) {
+        Circle.call(this);
+//        this.startAngle = startAngle || Math.PI;
+        this.startAngle = startAngle || 3 * Math.PI / 2;
+        this.percent = percent;
+    }
+
+    Ring.prototype = Circle.prototype;
+    //    Ring.prototype.drawRing = function (ctx) {
+    //        console.log(this.startAngle);
+    //        this.draw(ctx);
+    //        ctx.beginPath();
+    //        var anglePerSec = 2 * Math.PI / (100 / this.percent);
+    //        ctx.arc(150, 150, this.radius, this.startAngle, anglePerSec, true);
+    //        ctx.strokeStyle = this.fillStyle;
+    //        ctx.lineCap = this.lineCap;
+    //        ctx.stroke();
+    //        ctx.closePath();
+    //    };
+
+    Ring.prototype.drawRing = function (ctx) {
+        var count = 0,
+                _this = this,
+                times = 10,
+                startAngle = this.startAngle,
+                endAngle = startAngle;
+
+        this.draw(ctx);
+        var handle = setInterval(function () {
+            console.log(startAngle);
+            if (count == times) {
+                clearInterval(handle);
+            }
+            ctx.beginPath();
+            var anglePerSec = 2 * Math.PI * (_this.percent / 100) / times;
+            ctx.arc(150, 150, _this.radius, startAngle, endAngle, false);
+
+            ctx.strokeStyle = _this.fillStyle;
+            ctx.lineCap = _this.lineCap;
+            ctx.stroke();
+            ctx.closePath();
+            startAngle += anglePerSec - 0.1;
+            endAngle = startAngle + anglePerSec;
+            count++;
+        }, 1000);
+    };
+    var backRing = new Circle();
+    backRing.draw(oContext);
+    var ring = new Ring(180, 50);
+    ring.drawRing(oContext);
+
+</script>
+</body>
+</html>

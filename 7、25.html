@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	#mycanvas{
+		position: fixed;
+		top:0;
+		bottom: 0;
+		left: 0;
+		right:0;
+		margin: auto;
+		border:2px solid #00f;
+	}
+	</style>
+</head>
+<body>
+	<canvas id='mycanvas' width='800px' height='500px'></canvas>
+	<script>
+	var arr = {
+        val: [0.6, 0.2, 0.1, 0.1],
+        col: ["green", "red", "blue", "orange"],
+        txt: ["第一季度", "第二季度", "第三季度", "第四季度"]
+    };
+
+    var data = {
+        x: ["1月", "2月", "3月", "4月", "5月", "6月"],
+        y: [0,100,200,300,400,500,600,700,800,900,1000],
+        val: [123, 568, 987, 678, 389, 80],
+        hue: ["#6600FF", "#FF6600", "#00CCCC", "#FF66CC", "#990066", "#00CC00"]
+    };
+    var mycanvas = document.getElementById('mycanvas');
+    var oMyCanvas = mycanvas.getContext('2d');
+
+    oMyCanvas.beginPath();
+    oMyCanvas.strokeStyle='#000'
+    oMyCanvas.moveTo(50,50);
+    oMyCanvas.lineTo(50,450);
+    oMyCanvas.lineTo(750,450);
+    oMyCanvas.stroke();
+    oMyCanvas.closePath();
+
+    for (var i=0;i<data.y.length; i++) {
+        oMyCanvas.fillText(data.y[i],20,80+35*(data.y.length-i));
+    }
+
+    for(var i=0;i<data.val.length;i++){
+    	oMyCanvas.beginPath();
+    	oMyCanvas.lineWidth='60'
+    	oMyCanvas.moveTo(150+100*i,449-data.val[i]*0.4);
+    	oMyCanvas.lineTo(150+100*i,449);
+    	oMyCanvas.strokeStyle=data.hue[i]
+    	oMyCanvas.stroke();
+    	oMyCanvas.closePath();
+
+    	oMyCanvas.fillText(data.x[i],140+100*i,469);
+
+
+        var numsY = 550-data.val[i]/500*100;
+        var numsX = i*100+150;
+
+        var numsNY = 550-data.val[i+1]/500*100;
+        var numsNX = (i+1)*100+150;
+
+        oMyCanvas.beginPath();
+        oMyCanvas.moveTo(numsX,numsY);
+        oMyCanvas.lineTo(numsNX,numsNY);
+        oMyCanvas.lineWidth = 6;
+        oMyCanvas.strokeStyle = "red";
+        oMyCanvas.closePath();
+        oMyCanvas.stroke();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // var PI = 2*Math.PI;
+    // var Start = 0;
+    // var End = 0;
+
+    // for(var i=0;i<arr.val.length;i++){
+    // 	oMyCanvas.beginPath();
+    // 	oMyCanvas.moveTo(500,250);
+    // 	End = PI*arr.val[i]+Start;
+    // 	oMyCanvas.arc(500,250,240,Start,End);
+    // 	oMyCanvas.fillStyle=arr.col[i];
+    // 	oMyCanvas.stroke();
+    // 	oMyCanvas.closePath();
+    // 	oMyCanvas.fill();
+    // 	Start = End;
+
+    // 	oMyCanvas.fillStyle=arr.col[i];
+    // 	oMyCanvas.fillRect(50,100+50*i,50,20);
+    // 	oMyCanvas.fillText(arr.txt[i],120,115+50*i)
+    // }
+
+
+
+	</script>
+</body>
+</html>

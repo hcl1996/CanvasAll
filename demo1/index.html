@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .myCanvas{
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;right: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas class="myCanvas" id="myCanvas" width="200" height="100"></canvas>
+    <script type="text/javascript">
+        var oCanvas = document.getElementById("myCanvas");
+        var oContext = oCanvas.getContext("2d");
+
+        //繪製路徑
+        oContext.beginPath();
+        //設置畫皮的顔色
+        //oContext.strokeStyle='red';
+        //oContext.lineWidth='5';
+        //設置起始點坐標
+        oContext.moveTo(0,0);
+        //設置終點坐標
+        oContext.lineTo(100,50);
+        //畫綫
+        oContext.lineTo(200,0);
+        oContext.stroke();
+        oContext.closePath();
+        oContext.fillStyle = "blue";
+        oContext.fill();
+    </script>
+</body>
+</html>

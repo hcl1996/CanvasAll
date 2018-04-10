@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .myCanvas {
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<canvas class="myCanvas" id="myCanvas" width="200" height="100"></canvas>
+<script type="text/javascript">
+    var oCanvas = document.getElementById("myCanvas");
+    var oContext = oCanvas.getContext("2d");
+    var oDeg = Math.PI / 180;
+
+    //    var start = 0;
+    //    var end = 0;
+
+    oContext.beginPath();
+    oContext.moveTo(100, 50);
+
+    oContext.arc(100, 50, 48, 0, 180 * oDeg);
+    oContext.arc(100, 50, 48, 180 * oDeg, 360 * oDeg);
+
+    oContext.stroke();
+    oContext.fillStyle = 'red';
+    oContext.fill();
+    oContext.closePath();
+</script>
+</body>
+</html>

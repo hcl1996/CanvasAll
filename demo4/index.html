@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .myCanvas {
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<canvas class="myCanvas" id="myCanvas" width="500" height="300"></canvas>
+<script type="text/javascript">
+
+    var data = {
+        x: ["1月", "2月", "3月", "4月", "5月", "6月"],
+        y: [0, 200, 400, 600, 800, 1000],
+        val: [123, 568, 987, 678, 389, 80],
+        hue: ["#6600FF", "#FF6600", "#00CCCC", "#FF66CC", "#990066", "#00CC00"]
+    };
+
+    var oCanvas = document.getElementById("myCanvas");
+    var oContext = oCanvas.getContext('2d');
+
+    oContext.moveTo(50, 50);
+    oContext.lineTo(50, 250);
+    oContext.lineTo(450, 250);
+    oContext.stroke();
+    for (var i = data.y.length - 1; i >= 0; i--) {
+        oContext.fillText(data.y[i], 15, 50 + 40 * (data.y.length - 1 - i));
+    }
+
+    for (var i = 0; i < data.val.length; i++) {
+        oContext.beginPath();
+        oContext.lineWidth = '30';
+        oContext.strokeStyle = data.hue[i];
+        oContext.moveTo(100 + 50 * i, 249 - data.val[i] * 0.2);
+        oContext.lineTo(100 + 50 * i, 249);
+        oContext.stroke();
+        oContext.fillText(data.x[i], 90 + 50 * i, 280)
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+            #divContainer{
+                margin-top: 20px;
+                text-align: center;
+            }
+            #cv{
+                width: 300px;
+                height: 200px;
+                border-bottom: 2px solid #000;
+                border-left: 2px solid #000;
+            }
+        </style>
+</head>
+<body>
+<div id="divContainer">
+    铝锭价走势图<br/>
+    <canvas id="cv">你的设备不支持图表数据显示</canvas>
+</div>
+<canvas id="can1" width="800" height="600"></canvas>
+    <script type="text/javascript">
+            var can1 = document.getElementById("can1");
+            var ctx = can1.getContext("2d");
+            nums = [268,1236,1273,1545,1988];
+            datas = ["11.1-11.2","11.3-11.9","11.10-11.16","11.17-11.23","11.24-11.30"];
+            //画出坐标线
+            function drawBorder(){
+                ctx.beginPath();
+                ctx.moveTo(100,50);
+                ctx.lineTo(100,550);
+                ctx.moveTo(100,550);
+                ctx.lineTo(600,550);
+                ctx.closePath();
+                ctx.stroke();
+            }
+            //画出折线
+            function drawLine(){
+                for (i = 0;i < nums.length-1;i ++){
+                    //起始坐标
+                    var numsY = 550-nums[i]/500*100;
+                    var numsX = i*100+150;
+                    //终止坐标
+                    var numsNY = 550-nums[i+1]/500*100;
+                    var numsNX = (i+1)*100+150;
+
+                    ctx.beginPath();
+                    ctx.moveTo(numsX,numsY);
+                    ctx.lineTo(numsNX,numsNY);
+                    ctx.lineWidth = 6;
+                    ctx.strokeStyle = "#80aa33";
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+            }
+            //绘制折线点的菱形和数值，横坐标值，纵坐标值
+            // function drawBlock(){
+            //     for (i = 0;i <= nums.length;i ++){
+            //         var numsY = 550-nums[i]/500*100;
+            //         var numsX = i*100+150;
+            //         ctx.beginPath();
+            //         // 画出折线上的方块
+            //         ctx.moveTo(numsX-4,numsY);
+            //         ctx.lineTo(numsX,numsY-4);
+            //         ctx.lineTo(numsX+4,numsY);
+            //         ctx.lineTo(numsX,numsY+4);
+            //         ctx.fill();
+            //         ctx.font = "15px scans-serif";
+            //         ctx.fillStyle = "black";
+            //         //折线上的点值
+            //         var text = ctx.measureText(nums[i]);
+            //         ctx.fillText(nums[i],numsX-text.width,numsY-10);
+            //         //绘制纵坐标
+            //         var colText = ctx.measureText((nums.length-i)*500);
+            //         ctx.fillText((nums.length-i)*500,90-colText.width,i*100+55);
+            //         //绘制横坐标并判断
+            //         if (i < 5){
+            //             var rowText = ctx.measureText(datas[i]);
+            //             ctx.fillText(datas[i],numsX-rowText.width/2,570);
+            //         }else if(i == 5) {
+            //             return;
+            //         }
+            //         ctx.closePath();
+            //         ctx.stroke();
+            //     }
+            //}
+            drawBorder();
+            drawLine();
+            //drawBlock();
+    </script>
+</body>
+
+<script>
+// (function(){
+//         window.onload = function(){
+
+//             //数据源
+//             var dict = [
+//                 {x: "2015-04-24", y: 13400},
+//                 {x: "2015-04-25", y: 13380},
+//                 {x: "2015-04-26", y: 13370},
+//                 {x: "2015-04-27", y: 13370},
+//                 {x: "2015-04-28", y: 13380}
+//             ]
+
+//             //数据源提取
+//             var len = dict.length;
+//             var xArr = [], yArr = [], tmp_yArr = [];
+//             for(var i=0; i<len; i++){
+//                 xArr.push(i * 60);
+//                 tmp_yArr.push(dict[i].y);
+//             }
+//              var tmp_minY = Math.min.apply(Math, tmp_yArr);//最小值
+//             var tmp_maxY = Math.max.apply(Math, tmp_yArr);//最大值
+//             if(tmp_maxY - tmp_minY <= 100){
+//                 for(var i=0; i<len; i++){
+//                     yArr.push(tmp_yArr[i] - tmp_minY + 50);//与最小的做比较
+//                 }
+//             }
+//             else{//如果相差太大会导致图表不美观
+//                 for(var i=0; i<len; i++){
+//                     yArr.push(tmp_yArr[i] / 500);
+//                 }
+//             }
+//             var minY = Math.min.apply(Math, yArr);
+//             var maxY = Math.max.apply(Math, yArr);
+
+//             //canvas 准备
+//             var canvas = document.getElementById("cv");//获取canvas画布
+//             var ctx  = canvas.getContext("2d");
+//              //画折线
+//             for(var i=0 ;i<len; i++){
+//                 var x = xArr[i];
+//                 var y = maxY - yArr[i] + minY;
+//                 if(i === 0){
+//                     ctx .moveTo(x, y);
+//                 }
+//                 else{
+//                     ctx .lineTo(x, y);
+//                 }
+//             }
+//             ctx .stroke();
+
+//             //画点
+//             for(var i=0; i<len; i++){
+//                 var x = xArr[i];
+//                 var y = maxY - yArr[i] + minY;
+//                 var xMemo = dict[i].x;
+//                 var yMemo = "¥" + dict[i].y;
+//                 ctx.beginPath();
+//                 ctx.fillStyle = "#000";
+//                 ctx.arc(x, y, 2, 0, 2*Math.PI);//画点
+//                 ctx.fill();
+//                 ctx.fillText(yMemo, x + 3, y - 10);
+//                 ctx.fillText(xMemo, x + 3, canvas.height - 10, 40);//画文字
+//             }
+
+//         }
+//     })();
+
+</script>
+</html>

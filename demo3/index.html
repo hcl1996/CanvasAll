@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .myCanvas {
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<canvas class="myCanvas" id="myCanvas" width="200" height="100"></canvas>
+<script type="text/javascript">
+
+    var data = {
+        val: [0.05, 0.25, 0.6, 0.1],
+        col: ["green", "blue", "#90c", "orange"],
+        txt: ["第一季度", "第二季度", "第三季度", "第四季度"]
+    };
+
+    var oCanvas = document.getElementById("myCanvas");
+    var oContext = oCanvas.getContext("2d");
+    var oPI = Math.PI * 2;
+    var oStart = 0;
+    var oEnd = 0;
+
+    for (var i = 0; i < data.val.length; i++) {
+        oContext.beginPath();
+        oContext.moveTo(150, 50);
+        oEnd = oPI * data.val[i] + oStart;
+        oContext.arc(150, 50, 48, oStart, oEnd);
+        oContext.fillStyle = data.col[i];
+        oContext.fill();
+        oContext.closePath();
+        oStart = oEnd;
+
+        oContext.fillStyle = data.col[i];
+        oContext.fillRect(10, 15 + 20 * i, 15, 10);
+        oContext.fillText(data.txt[i], 30, 25 + 20 * i)
+
+
+    }
+
+
+</script>
+</body>
+</html>
